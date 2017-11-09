@@ -1,0 +1,55 @@
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js "></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"></script>
+<br><br>
+<div class="container ">
+    <div class="card" *ngFor="let data of programs">
+        <div class="card-header">
+            Program:: {{data.name}}
+        </div>
+        <div class="card-block">
+            <h2>Projects</h2>
+            <table class="table table-striped">
+                <thead>
+                    <td>Name</td>
+                    <td>Start Date</td>
+                    <td>End Date</td>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of projects">
+                        <td>{{item.name}}</td>
+                        <td>{{item.create_date}}</td>
+                        <td>{{item.end_date}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<br><br>
+<div class="container ">
+    <div class="card">
+        <div class="card-header">
+            Fill in the Form and Submit to Add WorkflowLevel2
+        </div>
+        <div class="card-block">
+            <div class="container">
+                <form [formGroup]="heroForm" novalidate>
+                    <div class="form-group ">
+                        <label class="center-block">Name:
+                          <input class="form-control " formControlName="name">
+                        </label>
+                        <label class="center-block ">Start Date:
+                            <input class="form-control " formControlName="start_date">
+                        </label>
+                        <label class="center-block ">End Date:
+                          <input class="form-control " formControlName="end_date">
+                        </label>
+                        <a href="#" class="btn btn-primary">Submit</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
