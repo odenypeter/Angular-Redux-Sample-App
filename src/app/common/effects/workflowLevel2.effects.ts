@@ -27,7 +27,7 @@ export class WorkFlowLevel2Effects extends BaseEffects {
     .ofType(WorkflowLevel2Actions.GET_REQUEST)
     .switchMap((action: UnsyncedAction) => {
 
-      return this._http.get('http://localhost:4200/assets/workflowlevel2.json')
+      return this._requestService.send(action.meta.effect.method, action.meta.effect.url)
         .map(res => {
           return {
             type: action.meta.commit.type,

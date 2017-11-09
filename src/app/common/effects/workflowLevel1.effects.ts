@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { UnsyncedAction } from '../interface/unsyncedAction';
 import { StorageService } from '../services/storage.service';
 import { QueueService } from '../services/queue.service';
+import { RequestService } from '../services/request.service';
 import * as moment from 'moment';
 import { BaseEffects } from './base.effects';
 import { WorkflowLevel1Actions } from '../actions/workflowLevel1.actions';
@@ -18,7 +19,7 @@ export class WorkFlowLevel1Effects extends BaseEffects {
   @Effect() operationRead$ = this.update$
     .ofType(WorkflowLevel1Actions.WORKFLOW_LEVEL_1_READ)
     .switchMap((action: UnsyncedAction) => {
-      return this._http.get('http://localhost:4200/assets/data.json')
+      return this._request.send(action.meta.effect.method, action.meta.effect.url)
         .map(res => ({
           type: action.meta.commit.type,
           payload: res.json(),
@@ -34,6 +35,7 @@ export class WorkFlowLevel1Effects extends BaseEffects {
   constructor(private update$: Actions,
               private workflowLevel1Actions: WorkflowLevel1Actions,
               protected queueService: QueueService,
+              private _request: RequestService,
               private _http: Http) {
     super(workflowLevel1Actions, queueService);
   }
