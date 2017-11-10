@@ -1,8 +1,6 @@
 import { WorkflowLevel2Actions } from '../actions/workflowLevel2.actions';
 import { Action } from '@ngrx/store';
 
-declare let localforage: any;
-
 export function workflowLevel2Reducer(state = [], action: Action) {
   switch (action.type) {
 
@@ -19,13 +17,13 @@ export function workflowLevel2Reducer(state = [], action: Action) {
       return [...state, action.payload];
 
     case WorkflowLevel2Actions.DELETE_COMMIT:
-      const deleteState = [];
-      state.forEach(item => {
-        if (item.id !== action.payload.id) {
-          deleteState.push(item);
+      const deletedItemState = [];
+      state.forEach(x => {
+        if (x.id !== action.payload.id) {
+          deletedItemState.push(x);
         }
       });
-      return deleteState;
+      return deletedItemState;
 
     default:
       return state;

@@ -1,4 +1,4 @@
-export interface UnsyncedAction {
+export interface ActionState {
   type: string,
   payload: any,
   meta: {

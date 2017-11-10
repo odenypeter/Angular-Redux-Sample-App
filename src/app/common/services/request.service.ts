@@ -18,7 +18,7 @@ export class RequestService {
   }
 
   public send(method, url, data = null) {
-    this.headers.append('Authorization', 'Token' + this.access_token);
+    this.headers.append('Authorization', 'Token dd18c9fa41efd7fede66342e8d7bab9297112a80');
     const options = new RequestOptions({
       method: method,
       body: data,
@@ -26,19 +26,27 @@ export class RequestService {
     });
 
     return this.http.request(this.API_ENDPOINT_URL + url, options)
-      .catch(this.handleError.bind(this))
-      .map(this.getData);
+      .catch(this.errorHandler.bind(this))
+      .map(this.getJson);
   }
 
-  private getData(res: Response) {
+  private getJson(res: Response) {
     if (this._observer) {
       this._observer.next(false);
     }
-    const data = res.json();
-    return data || {};
+    try {
+      const data = res.json();
+      return data;
+    } catch (error) {
+      console.log(error)
+
+      return {};
+    }
   }
 
-  private handleError(error) {
-    return 'There was a problem Handling your request';
+  private errorHandler(error) {
+      console.log(error);
+      return;
+    ;
   }
 }

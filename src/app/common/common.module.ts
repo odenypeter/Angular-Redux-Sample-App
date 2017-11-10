@@ -10,19 +10,10 @@ import { WorkFlowLevel1Effects } from '../common/effects/workflowLevel1.effects'
 import { WorkFlowLevel2Effects } from '../common/effects/workflowLevel2.effects';
 import { LoadingService } from './services/loading.service';
 import { QueuedActions } from './actions/queued.actions';
-import { QueueEffects } from './effects/queue';
-import { QueueService} from './services/queue.service';
 import { HttpModule } from '@angular/http';
-import { NetworkService } from 'app/common/services/network.service';
-import { ObjectHelper } from 'app/common/object.helper';
 import { RequestService } from 'app/common/services/request.service';
 
-export function initQueueService(queueService: QueueService): any {
-  return () => {
-    return queueService.load();
-  }
-}
-// TODO: Move it to shared folder
+
 const appEffectsRun = [
   EffectsModule.run(WorkFlowLevel1Effects),
   EffectsModule.run(WorkFlowLevel2Effects),
@@ -42,17 +33,8 @@ const appEffectsRun = [
     WorkflowLevel2Actions,
     WorkflowLevel1Service,
     WorkflowLevel2Service,
-    QueueService,
     LoadingService,
-    NetworkService,
-    ObjectHelper,
     RequestService,
-    {
-      provide: APP_INITIALIZER,
-      useFactory: initQueueService,
-      deps: [QueueService],
-      multi: true
-    },
   ],
   exports: [
     BrowserModule,
