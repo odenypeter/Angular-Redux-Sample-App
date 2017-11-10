@@ -21,7 +21,7 @@ export class WorkflowLevel2Actions {
     return {
       type: WorkflowLevel2Actions.GET_REQUEST,
       meta: {
-        effect: {url: '/workflowlevel1/', method: 'GET'},
+        effect: {url: '/workflowlevel2/', method: 'GET'},
         commit: {type: WorkflowLevel2Actions.GET_COMMIT},
         rollback: {type: WorkflowLevel2Actions.GET_ROLLBACK}
       }

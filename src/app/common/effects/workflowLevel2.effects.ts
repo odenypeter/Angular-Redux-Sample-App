@@ -13,17 +13,16 @@ import 'rxjs/add/operator/switchMap';
 @Injectable()
 export class WorkFlowLevel2Effects {
 
-  @Effect() getWorkflowsLevel2$ = this.execute$
-    .ofType(WorkflowLevel2Actions.GET_REQUEST)
-    .switchMap((action: ActionState) => {
-      return this._requestService.send(action.meta.effect.method, action.meta.effect.url)
-        .map(res => {
-          return {
-            type: action.meta.commit.type,
-            payload: res
-          }
-        })
-    });
+  @Effect() getWorkflowLevel2$ = this.execute$
+  .ofType(WorkflowLevel2Actions.GET_REQUEST)
+  .switchMap((action: ActionState) => {
+    return this._requestService.send(action.meta.effect.method, action.meta.effect.url)
+      .map(res => ({
+        type: action.meta.commit.type,
+        payload: res
+      }))
+  });
+
 
   @Effect() getWorkflowsLevel2Commit$ = this.execute$
     .ofType(WorkflowLevel2Actions.GET_COMMIT)
