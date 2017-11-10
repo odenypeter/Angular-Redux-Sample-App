@@ -17,6 +17,8 @@ import { WorkflowLevel2Actions } from 'app/common/actions/workflowLevel2.actions
 })
 export class Workflowlevel1Component implements OnInit, OnDestroy {
 
+  showHide: false;
+
   projectForm: FormGroup;
   public programs = [];
   public projects = [];
@@ -63,16 +65,17 @@ export class Workflowlevel1Component implements OnInit, OnDestroy {
       console.log(this.projects);
     });
   }
-  addWorkflowLevel2(projectActivity) {
+  addWorkflowLevel2(projectActivity, program) {
     if (this.projectForm.valid) {
-      if (this.programs.length) {
-        projectActivity.workflowlevel1 = this.programs[0].id;
-      }
+
+        projectActivity.workflowlevel1 = program;
       // tslint:disable-next-line:max-line-length
       projectActivity.expected_start_date = (projectActivity.expected_start_date === '' ? null : moment(projectActivity.expected_start_date, 'DD.MM.YYYY').format('YYYY-MM-DDThh:mm:ssZ'));
 
       // tslint:disable-next-line:max-line-length
       projectActivity.expected_end_date = (projectActivity.expected_end_date === '' ? null : moment(projectActivity.expected_end_date, 'DD.MM.YYYY').format('YYYY-MM-DDThh:mm:ssZ'));
+      console.log(projectActivity)
+
       const action = this.workflowLevel2Actions.createWorkflowsLevel2(projectActivity);
       this.store.dispatch(action);
 

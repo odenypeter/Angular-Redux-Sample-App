@@ -7,10 +7,11 @@ import {environment} from '../environments/environment';
 
 @Injectable()
 
-export class AppLoaderService {
-  constructor(private store: Store<AppState>,
+export class DataService {
+  constructor(
               private workflowLevel1Actions: WorkflowLevel1Actions,
               private workflowLevel2Actions: WorkflowLevel2Actions,
+              private store: Store<AppState>
   ) {
   }
 

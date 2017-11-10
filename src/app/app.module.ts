@@ -7,24 +7,19 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import reducer from './common/reducers/index';
 import { Http } from '@angular/http';
-import { AppLoaderService } from './app-loader.service';
+import { DataService } from './data.service';
 import { Observable } from 'rxjs/Observable';
 
-// // AoT requires an exported function for factories
-// export function HttpLoaderFactory(http: Http) {
-//   return new TranslateHttpLoader(http, 'assets/i18n/', '-lang.json');
-// }
-
-// Start loading all data from server
-export function initAppLoadingService(appLoaderService: AppLoaderService): any {
-  return () => {
-      return appLoaderService.init();
+export class SomeError implements ErrorHandler {
+  handleError(error) {
+    console.error('Error Handler: ', error);
   }
 }
 
-export class TolaErrorHandler implements ErrorHandler {
-  handleError(error) {
-    console.error('Tola Error Handler: ', error);
+// Load Data from the server on app init
+export function startDataService(_dataService: DataService): any {
+  return () => {
+      return _dataService.init();
   }
 }
 
@@ -39,16 +34,16 @@ export class TolaErrorHandler implements ErrorHandler {
     StoreModule.provideStore(reducer),
   ],
   providers: [
-    AppLoaderService,
+    DataService,
     {
       provide: APP_INITIALIZER,
-      useFactory: initAppLoadingService,
-      deps: [AppLoaderService],
+      useFactory: startDataService,
+      deps: [DataService],
       multi: true
     },
     {
       provide: ErrorHandler,
-      useClass: TolaErrorHandler
+      useClass: SomeError
     }
   ],
   bootstrap: [AppComponent]

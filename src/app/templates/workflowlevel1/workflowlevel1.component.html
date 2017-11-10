@@ -1,60 +1,54 @@
 <br><br>
-<div class="container ">
-    <div class="card" *ngFor="let data of programs">
+<div class="container prrogram">
+    <div class="card program__card" *ngFor="let data of programs">
         <div class="card-header">
             Program:: {{data.name}}
         </div>
-        <div class="card-block">
-            <strong>Projects</strong>
-            <table class="table table-striped">
-                <thead>
-                    <td>Name</td>
-                    <td>Start Date</td>
-                    <td>Action</td>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let item of data.projects">
-                        <td>{{item.name}}</td>
-                        <td>{{item.create_date}}</td>
-                        <td><button class="btn btn-sm btn-danger" (click)="deleteWorflowLevel2(item)">Delete</button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-<br><br>
-<div class="container ">
-    <div class="card">
-        <div class="card-header">
-            Fill in the Form and Submit to Add WorkflowLevel2
-        </div>
-        <div class="card-block">
-            <div class="container">
-                <form [formGroup]="projectForm" novalidate>
-                    <div class="form-group row">
-                        <div class="col-md-3">
-                            <label class="center-block">Name:
-                          <input class="form-control " formControlName="name">
-                        </label>
+        <div class="card-block program__card__projects">
+            <div>
+                <strong>Projects</strong>
+                <table class="table table-striped">
+                    <thead>
+                        <td>Name</td>
+                        <td>Start Date</td>
+                        <td>Action</td>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of data.projects">
+                            <td>{{item.name}}</td>
+                            <td>{{item.create_date}}</td>
+                            <td><button class="btn btn-sm btn-danger" (click)="deleteWorflowLevel2(item)">Delete</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="btn btn-primary" (click)="showHide = !showHide" *ngIf="!showHide">Add Activity</button>
+                <div class="" *ngIf="showHide">
+                    <form [formGroup]="projectForm" novalidate>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <label class="center-block">Name:
+                              <input class="form-control " formControlName="name">
+                            </label>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="center-block ">Start Date:
+                                <input class="form-control" type="date" formControlName="expected_start_date">
+                            </label>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="center-block ">End Date:
+                              <input class="form-control" type="date" formControlName="expected_end_date">
+                            </label>
+                            </div>
+                            <div class="col-md-3">
+                                <br>
+                                <button class="btn btn-primary" (click)="addWorkflowLevel2(projectForm.value, data.id)" [disabled]="!projectForm.valid">Submit</button>
+                            </div>
                         </div>
-                        <div class="col-md-3">
-                            <label class="center-block ">Start Date:
-                            <input class="form-control" type="date" formControlName="expected_start_date">
-                        </label>
-                        </div>
-                        <div class="col-md-3">
-                            <label class="center-block ">End Date:
-                          <input class="form-control" type="date" formControlName="expected_end_date">
-                        </label>
-                        </div>
-                        <div class="col-md-3">
-                            <br>
-                            <button class="btn btn-primary" (click)="addWorkflowLevel2(projectForm.value)" [disabled]="!projectForm.valid">Submit</button>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<br><br>
