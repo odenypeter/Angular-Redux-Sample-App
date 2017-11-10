@@ -76,8 +76,9 @@ export class Workflowlevel1Component implements OnInit, OnDestroy {
   addWorkflowLevel2(projectActivity, program) {
     if (this.projectForm.valid) {
 
-        projectActivity.workflowlevel1 = program;
+      projectActivity.workflowlevel1 = program;
       // tslint:disable-next-line:max-line-length
+      projectActivity.level2_uuid = '' + Math.floor(Math.random() * 90000) + 10000;
       projectActivity.expected_start_date = (projectActivity.expected_start_date === '' ? null : moment(projectActivity.expected_start_date, 'DD.MM.YYYY').format('YYYY-MM-DDThh:mm:ssZ'));
 
       // tslint:disable-next-line:max-line-length
@@ -85,8 +86,8 @@ export class Workflowlevel1Component implements OnInit, OnDestroy {
       console.log(projectActivity)
 
       const action = this.workflowLevel2Actions.createWorkflowsLevel2(projectActivity);
-      this.store.dispatch(action);
-
+      this.store.dispatch(action)
+      alert("A new Activity was submitted!!");
     }
   }
 
