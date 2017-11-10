@@ -19,7 +19,7 @@ export class WorkFlowLevel1Effects {
       return this._request.send(action.meta.effect.method, action.meta.effect.url)
         .map(res => ({
           type: action.meta.commit.type,
-          payload: res,
+          payload: res
         }))
     });
 

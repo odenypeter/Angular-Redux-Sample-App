@@ -13,9 +13,6 @@ import 'rxjs/add/operator/switchMap';
 @Injectable()
 export class WorkFlowLevel2Effects {
 
-  access_token = 'dd18c9fa41efd7fede66342e8d7bab9297112a80';
-  headers = new Headers();
-
   @Effect() getWorkflowsLevel2$ = this.execute$
     .ofType(WorkflowLevel2Actions.GET_REQUEST)
     .switchMap((action: ActionState) => {
@@ -23,7 +20,7 @@ export class WorkFlowLevel2Effects {
         .map(res => {
           return {
             type: action.meta.commit.type,
-            payload: res,
+            payload: res
           }
         })
     });

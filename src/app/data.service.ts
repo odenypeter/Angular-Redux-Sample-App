@@ -3,7 +3,6 @@ import { WorkflowLevel1Actions } from './common/actions/workflowLevel1.actions';
 import { WorkflowLevel2Actions } from './common/actions/workflowLevel2.actions';
 import { Store } from '@ngrx/store';
 import { AppState } from './common/interface/appstate';
-import {environment} from '../environments/environment';
 
 @Injectable()
 
