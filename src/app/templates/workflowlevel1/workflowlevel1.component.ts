@@ -52,8 +52,12 @@ showHide: false;
         for (const program of this.programs){
           if (this.projects) {
             try {
-                for (const project of program.projets) {
-                  program.projects = this.getProject(project);
+                program.projects = [];
+                for (const project of this.projects) {
+                  if (project.workflowlevel1 === program.url ) {
+                    program.projects.push(project);
+
+                  }
                 }
             } catch (error) {
 

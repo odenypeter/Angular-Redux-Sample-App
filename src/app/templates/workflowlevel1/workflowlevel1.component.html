@@ -7,7 +7,7 @@
         <div class="card-block program__card__projects">
             <div>
                 <strong>Activities</strong>
-                <table class="table table-striped" *ngIf="program.projects">
+                <table class="table table-striped" *ngIf="program.projects.length">
                     <thead>
                         <td>Name</td>
                         <td>Start Date</td>
@@ -21,10 +21,10 @@
                         </tr>
                     </tbody>
                 </table>
-                <div class="alert alert-danger">
+                <div class="alert alert-danger" *ngIf="!program.projects.length">
                     <strong>Whoops!</strong> There was a problem loading Activities.
                 </div>
-                <button class="btn btn-primary" (click)="showHide = !showHide" *ngIf="showHide">Add Activity</button>
+                <button class="btn btn-info" (click)="showHide = !showHide" *ngIf="!showHide">Add Activity</button>
                 <div class="" *ngIf="showHide">
                     <form [formGroup]="projectForm" novalidate>
                         <div class="form-group row">
