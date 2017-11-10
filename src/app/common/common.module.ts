@@ -6,7 +6,6 @@ import { WorkflowLevel2Actions } from './actions/workflowLevel2.actions';
 import { EffectsModule } from '@ngrx/effects';
 import { WorkFlowLevel1Effects } from '../common/effects/workflowLevel1.effects';
 import { WorkFlowLevel2Effects } from '../common/effects/workflowLevel2.effects';
-import { QueuedActions } from './actions/queued.actions';
 import { HttpModule } from '@angular/http';
 import { RequestService } from 'app/common/services/request.service';
 
@@ -25,7 +24,6 @@ const appEffectsRun = [
     appEffectsRun
   ],
   providers: [
-    QueuedActions,
     WorkflowLevel1Actions,
     WorkflowLevel2Actions,
     RequestService,

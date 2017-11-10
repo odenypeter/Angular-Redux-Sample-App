@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { WorkflowLevel2 } from '../interface/workflowlevel2';
-import { QueuedActions } from './queued.actions';
 
 @Injectable()
 
-export class WorkflowLevel2Actions extends QueuedActions {
+export class WorkflowLevel2Actions {
 
   static GET_REQUEST = 'GET_REQUEST';
   static GET_COMMIT = 'GET_COMMIT';
