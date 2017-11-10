@@ -27,7 +27,7 @@
                     </tbody>
                 </table>
                 <div class="alert alert-danger" *ngIf="!program.projects.length">
-                    <strong>Whoops!</strong> There was a problem loading Activities.
+                    <strong>Whoops!</strong> There are no Activities for this Project.
                 </div>
                 <button class="btn btn-info" (click)="showHide = !showHide" *ngIf="!showHide">Add Activity</button>
                 <div class="" *ngIf="showHide">
