@@ -50,13 +50,9 @@ export class Workflowlevel1Component implements OnInit, OnDestroy {
 
       if (this.programs.length) {
         for (const program of this.programs){
-          if (this.projects.length) {
-              program.projects = []
-              for (const project of this.projects){
-                if (project.workflowlevel1 === program.url) {
-                  program.projects.push(project);
-                }
-              }
+
+          for (const project of program.projets) {
+            program.projects = this.getProject(project);
           }
         }
       }
@@ -79,6 +75,17 @@ export class Workflowlevel1Component implements OnInit, OnDestroy {
       const action = this.workflowLevel2Actions.createWorkflowsLevel2(projectActivity);
       this.store.dispatch(action);
 
+    }
+  }
+
+  getProject(item) {
+    if (item) {
+      try {
+        const project = this.projects.find(x => x.url === item);
+        return project;
+      } catch (err) {
+        return null;
+      }
     }
   }
 
