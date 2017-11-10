@@ -44,6 +44,7 @@ showHide: false;
   }
 
   ngOnInit() {
+
     this.storeSubscription = this.stores.subscribe((data) => {
       this.programs = data[0];
       this.projects = data[1];
