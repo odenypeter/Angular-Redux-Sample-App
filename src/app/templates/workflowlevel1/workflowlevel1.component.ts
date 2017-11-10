@@ -17,7 +17,8 @@ import { WorkflowLevel2Actions } from 'app/common/actions/workflowLevel2.actions
 })
 export class Workflowlevel1Component implements OnInit, OnDestroy {
 
-showHide: false;
+  showHide: false;
+  confirm_delete;
 
   projectForm: FormGroup;
   public programs = [];
@@ -101,8 +102,14 @@ showHide: false;
   }
 
   deleteWorflowLevel2(object) {
-    const action = this.workflowLevel2Actions.deleteWorkflowLevel2(object);
-    this.store.dispatch(action);
+    let confirm_delete = confirm('Are you sure you want to delete activity #'+object.id+ '?');
+    if (confirm_delete === true) {
+      const action = this.workflowLevel2Actions.deleteWorkflowLevel2(object);
+      this.store.dispatch(action);
+
+      this.projects = this.projects.filter(x => x.id !== object.id);
+      this.confirm_delete = 'You have successfully deleted Activity #' + object.id + '.';
+    }
   }
   ngOnDestroy(): void {
     this.stores.unsubscribe();
