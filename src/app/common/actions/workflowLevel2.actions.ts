@@ -20,18 +20,20 @@ export class WorkflowLevel2Actions {
   public getWorkflowsLevel2() {
     return {
       type: WorkflowLevel2Actions.GET_REQUEST,
-      meta: {effect: {url: '/workflowlevel2/', method: 'GET'}, commit: {type: WorkflowLevel2Actions.GET_COMMIT},
-      rollback: {type: WorkflowLevel2Actions.GET_ROLLBACK}
+      meta: {
+        effect: {url: '/workflowlevel1/', method: 'GET'},
+        commit: {type: WorkflowLevel2Actions.GET_COMMIT},
+        rollback: {type: WorkflowLevel2Actions.GET_ROLLBACK}
       }
     };
   };
 
-  public deleteWorkflowLevel2(workflowlvl2: WorkflowLevel2) {
+  public deleteWorkflowLevel2(workflowlevel2: WorkflowLevel2) {
     return {
       type: WorkflowLevel2Actions.DELETE_REQUEST,
-      payload: workflowlvl2,
+      payload: workflowlevel2,
       meta: {
-        effect: {url: '/workflowlevel2/' + workflowlvl2.id + '/', method: 'DELETE'},
+        effect: {url: '/workflowlevel2/' + workflowlevel2.id + '/', method: 'DELETE'},
         commit: {type: WorkflowLevel2Actions.DELETE_COMMIT},
         rollback: {type: WorkflowLevel2Actions.DELETE_ROLLBACK}
       }

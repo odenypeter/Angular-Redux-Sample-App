@@ -16,7 +16,7 @@ export class WorkFlowLevel2Effects {
   access_token = 'dd18c9fa41efd7fede66342e8d7bab9297112a80';
   headers = new Headers();
 
-  @Effect() getWorkflowsLevel2$ = this.update$
+  @Effect() getWorkflowsLevel2$ = this.execute$
     .ofType(WorkflowLevel2Actions.GET_REQUEST)
     .switchMap((action: ActionState) => {
       return this._requestService.send(action.meta.effect.method, action.meta.effect.url)
@@ -28,7 +28,13 @@ export class WorkFlowLevel2Effects {
         })
     });
 
-  @Effect() deleteWorkflowsLevel2Request$ = this.update$
+  @Effect() getWorkflowsLevel2Commit$ = this.execute$
+    .ofType(WorkflowLevel2Actions.GET_COMMIT)
+    .mergeMap(action => {
+      return Observable.of({type: 'DONE'});
+    });
+
+  @Effect() deleteWorkflowsLevel2Request$ = this.execute$
     .ofType(WorkflowLevel2Actions.DELETE_REQUEST)
     .switchMap((action: ActionState) => {
       return this._requestService.send(action.meta.effect.method, action.meta.effect.url)
@@ -38,7 +44,7 @@ export class WorkFlowLevel2Effects {
         }))
     });
 
-    @Effect() addWorkflowLevel2Request$ = this.update$
+    @Effect() addWorkflowLevel2Request$ = this.execute$
     .ofType(WorkflowLevel2Actions.ADD_REQUEST)
     .mergeMap((action: ActionState) => {
       return this._requestService.send(action.meta.effect.method, action.meta.effect.url, action.payload)
@@ -50,7 +56,7 @@ export class WorkFlowLevel2Effects {
         })
     });
 
-  constructor(private update$: Actions,
+  constructor(private execute$: Actions,
               private workFlowLevel2Actions: WorkflowLevel2Actions,
               private _requestService: RequestService,
               private _http: Http
