@@ -17,7 +17,7 @@ import { WorkflowLevel2Actions } from 'app/common/actions/workflowLevel2.actions
 })
 export class Workflowlevel1Component implements OnInit, OnDestroy {
 
-  showHide: false;
+showHide: false;
 
   projectForm: FormGroup;
   public programs = [];
@@ -48,12 +48,18 @@ export class Workflowlevel1Component implements OnInit, OnDestroy {
       this.programs = data[0];
       this.projects = data[1];
 
-      if (this.programs.length) {
+      if (this.programs) {
         for (const program of this.programs){
+          if (this.projects) {
+            try {
+                for (const project of program.projets) {
+                  program.projects = this.getProject(project);
+                }
+            } catch (error) {
 
-          for (const project of program.projets) {
-            program.projects = this.getProject(project);
+            }
           }
+
         }
       }
 
