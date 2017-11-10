@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects'
 import { Observable } from 'rxjs/Observable';
 import { WorkflowLevel2Actions } from '../actions/workflowLevel2.actions';
-import { WorkflowLevel2Service } from '../services/workflowlevel2.service';
 import { ActionState } from '../interface/actionState';
 import { RequestService } from '../services/request.service';
 import * as moment from 'moment';
@@ -53,7 +52,6 @@ export class WorkFlowLevel2Effects {
 
   constructor(private update$: Actions,
               private workFlowLevel2Actions: WorkflowLevel2Actions,
-              private workFlowLevel2Service: WorkflowLevel2Service,
               private _requestService: RequestService,
               private _http: Http
             ) {
