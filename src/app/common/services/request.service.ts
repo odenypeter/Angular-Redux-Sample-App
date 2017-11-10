@@ -11,7 +11,6 @@ export class RequestService {
 
   API_ENDPOINT_URL = 'http://dev-v2.tolaactivity.app.tola.io/api';
   private _observer: Observer<boolean>;
-  access_token = 'dd18c9fa41efd7fede66342e8d7bab9297112a80';
   headers = new Headers();
 
   constructor(private http: Http) {
@@ -24,7 +23,7 @@ export class RequestService {
       body: data,
       headers: this.headers,
     });
-
+    console.log(this.headers);
     return this.http.request(this.API_ENDPOINT_URL + url, options)
       .catch(this.errorHandler.bind(this))
       .map(this.getJson);
