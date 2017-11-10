@@ -28,26 +28,26 @@ export class WorkflowLevel2Actions {
     };
   };
 
-  public deleteWorkflowLevel2(workflowlevel2: WorkflowLevel2) {
+  public deleteWorkflowLevel2(data: WorkflowLevel2) {
     return {
       type: WorkflowLevel2Actions.DELETE_REQUEST,
-      payload: workflowlevel2,
+      payload: data,
       meta: {
-        effect: {url: '/workflowlevel2/' + workflowlevel2.id + '/', method: 'DELETE'},
+        effect: {url: '/workflowlevel2/' + data.id + '/', method: 'DELETE'},
         commit: {type: WorkflowLevel2Actions.DELETE_COMMIT},
         rollback: {type: WorkflowLevel2Actions.DELETE_ROLLBACK}
       }
     }
   }
 
-  public createWorkflowsLevel2(workflowlvl2: WorkflowLevel2) {
+  public createWorkflowsLevel2(data: WorkflowLevel2) {
     return {
       type: WorkflowLevel2Actions.ADD_REQUEST,
-      payload: workflowlvl2,
+      payload: data,
       meta: {
-        effect: { url: '/workflowlevel2/', method: 'POST', payload: workflowlvl2},
-        commit: {type: WorkflowLevel2Actions.ADD_COMMIT, payload: workflowlvl2},
-        rollback: {type: WorkflowLevel2Actions.ADD_ROLLBACK, payload: workflowlvl2}
+        effect: { url: '/workflowlevel2/', method: 'POST', payload: data},
+        commit: {type: WorkflowLevel2Actions.ADD_COMMIT, payload: data},
+        rollback: {type: WorkflowLevel2Actions.ADD_ROLLBACK, payload: data}
       }
     }
   }
