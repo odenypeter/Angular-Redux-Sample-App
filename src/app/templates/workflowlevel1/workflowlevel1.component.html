@@ -21,7 +21,7 @@
                     <tbody>
                         <tr *ngFor="let item of program.projects">
                             <td>{{item.name}}</td>
-                            <td>{{item.create_date}}</td>
+                            <td>{{item.create_date | date}}</td>
                             <td><button class="btn btn-sm btn-danger" (click)="deleteWorflowLevel2(item)">Delete</button></td>
                         </tr>
                     </tbody>
