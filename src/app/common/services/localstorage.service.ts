@@ -5,11 +5,11 @@ import {Observable} from 'rxjs/Observable';
 @Injectable()
 export class LocalStorageService {
 
-  public setItem<T>(key: string, value: T): Observable<T> {
+  public setItem(key, value): Observable<any> {
     return Observable.fromPromise(localforage.setItem(key, value))
   }
 
-  public getItem<T>(key: string): Observable<T> {
+  public getItem(key: string): Observable<any> {
     return Observable.fromPromise(localforage.getItem(key))
   }
 

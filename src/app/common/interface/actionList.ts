@@ -1,4 +1,4 @@
-export interface ActionState {
+export interface ActionList {
   type: string,
   payload: any,
   meta: {
