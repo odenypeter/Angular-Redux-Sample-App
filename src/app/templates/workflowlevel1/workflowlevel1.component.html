@@ -1,4 +1,7 @@
 <br><br>
+<div class="container alert alert-danger" *ngIf="!(isConnected | async)">
+    <strong>You lost your Internet connection</strong>
+</div>
 <div class="container" *ngIf="confirm_delete">
     <div class="alert alert-success" role="alert">
         <strong>Success!</strong> {{confirm_delete}}

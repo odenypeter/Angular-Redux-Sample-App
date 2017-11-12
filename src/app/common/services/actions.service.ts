@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../interface/appstate';
-import { dataUpdate } from '../services/store.service'
 import { LocalStorageService } from '../services/localstorage.service';
 
 @Injectable()
@@ -30,8 +29,8 @@ export class ActionsService {
   public addActions(action, type = 'CREATE') {
     this._lstorage.getItem('actionlist').subscribe(actions => {
       if (actions) {
-        let storedToCreateItem = null;
-        let storedToEditItem = null;
+        let storeCreateEntry = null;
+        let storeEditEntry = null;
 
         switch (type) {
 
@@ -45,22 +44,21 @@ export class ActionsService {
             break;
 
           case 'DELETE':
-            storedToCreateItem = this.findStoredItem(actions, action.meta.createAction, action.payload);
-            storedToEditItem = this.findStoredItem(actions, action.meta.editAction, action.payload);
-            if (storedToCreateItem) {
+            storeCreateEntry = this.getActionsInStore(actions, action.meta.createAction, action.payload);
+            storeEditEntry = this.getActionsInStore(actions, action.meta.editAction, action.payload);
+            if (storeCreateEntry) {
               const createActions = actions.find((stored) => stored.type === action.meta.createAction);
               createActions.payload.forEach((ac, index) => {
                 if (ac.localId === action.payload.localId) {
                   createActions.payload.splice(index, 1);
                 }
               });
-              console.log(JSON.stringify(createActions.payload.length));
               if (!createActions.payload.length) {
                 this.removeStoredActionByType(actions, action.meta.createAction);
               }
             }
 
-            if (storedToEditItem) {
+            if (storeEditEntry) {
               const editActions = actions.find((stored) => stored.type === action.meta.editAction)
               editActions.payload.forEach((ac, index) => {
                 if (ac.localId === action.payload.localId) {
@@ -72,8 +70,8 @@ export class ActionsService {
               }
             }
 
-            if (!storedToCreateItem) {
-              this.addOrUpdateAction(actions, action, action.meta.deleteAction);
+            if (!storeCreateEntry) {
+              this.createOrUpdateActionInStore(actions, action, action.meta.deleteAction);
             }
             break;
         }
@@ -85,14 +83,14 @@ export class ActionsService {
     });
   }
 
-  private findStoredItem(actions, type, payload) {
+  private getActionsInStore(actions, type, payload) {
     const storedActions = actions.find((stored) => stored.type === type);
     if (storedActions) {
       return storedActions.payload.find(stored => stored.localId === payload.localId);
     }
   }
 
-  private addOrUpdateAction(actions, action, type) {
+  private createOrUpdateActionInStore(actions, action, type) {
     const storedActions = actions.find((stored) => stored.type === type);
     if (storedActions) {
       storedActions.payload.push(action.payload);

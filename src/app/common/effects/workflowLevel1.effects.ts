@@ -11,8 +11,9 @@ import {Http, Headers, RequestOptions} from '@angular/http';
 import { MainEffects } from 'app/common/effects/main.effects';
 import { ActionsService } from 'app/common/services/actions.service';
 import { LocalStorageService } from 'app/common/services/localstorage.service';
-import { StoreService } from 'app/common/services/store.service';
 import { ListedActions } from '../actions/actionList.actions';
+
+declare let localforage: any;
 
 @Injectable()
 export class WorkFlowLevel1Effects extends MainEffects {
@@ -31,7 +32,7 @@ export class WorkFlowLevel1Effects extends MainEffects {
   @Effect() operationCommit$ = this.execute$
     .ofType(WorkflowLevel1Actions.WORKFLOW_LEVEL_1_COMMIT)
     .mergeMap(action => {
-      this._storeService.updateStorage('workflowslevel1', action.payload);
+      localforage.setItem('workflowslevel1', action.payload);
       return Observable.of({type: 'DONE'});
     });
 
@@ -40,9 +41,9 @@ export class WorkFlowLevel1Effects extends MainEffects {
   constructor(private execute$: Actions,
               private workflowLevel1Actions: WorkflowLevel1Actions,
               protected _actionsService: ActionsService,
-              private _storeService: StoreService,
               private _http: Http) {
               super(workflowLevel1Actions, _actionsService);
+
               this.headers.append('Authorization', 'Token dd18c9fa41efd7fede66342e8d7bab9297112a80');
 
 

@@ -34,7 +34,7 @@ export class WorkFlowLevel2Effects extends MainEffects {
   @Effect() getWorkflowsLevel2Commit$ = this.execute$
     .ofType(WorkflowLevel2Actions.GET_COMMIT)
     .mergeMap(action => {
-      this._storeService.updateStorage('workflowslevel2', action.payload);
+      localforage.setItem('workflowslevel2', action.payload);
       return Observable.of({type: 'DONE'});
     });
 
@@ -74,7 +74,6 @@ export class WorkFlowLevel2Effects extends MainEffects {
               private workFlowLevel2Actions: WorkflowLevel2Actions,
               private _requestService: RequestService,
               protected _actionsService: ActionsService,
-              private _storeService: StoreService,
               private _http: Http
             ) {
           super(workFlowLevel2Actions, _actionsService);

@@ -26,12 +26,18 @@ export class Workflowlevel1Component implements OnInit, OnDestroy {
 
   private stores;
   private storeSubscription: Subscription;
+  isConnected: Observable<boolean>;
 
   constructor(
     private fb: FormBuilder,
     private store: Store<AppState>,
     protected workflowLevel2Actions: WorkflowLevel2Actions,
   ) {
+
+    this.isConnected = Observable.merge(
+      Observable.of(navigator.onLine),
+      Observable.fromEvent(window, 'online').map(() => true),
+      Observable.fromEvent(window, 'offline').map(() => false));
 
     this.stores = Observable.combineLatest(
       this.store.select('workflowLevel1'),
@@ -46,7 +52,7 @@ export class Workflowlevel1Component implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.storeSubscription = this.stores.subscribe((data) => {
+    this.storeSubscription = this.stores.subscribe(data => setTimeout(() => {
       this.programs = data[0];
       this.projects = data[1];
 
@@ -71,7 +77,7 @@ export class Workflowlevel1Component implements OnInit, OnDestroy {
 
       console.log(this.programs);
       console.log(this.projects);
-    });
+    }));
   }
   addWorkflowLevel2(projectActivity, program) {
     if (this.projectForm.valid) {

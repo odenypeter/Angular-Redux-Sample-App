@@ -10,7 +10,7 @@ declare let localforage: any;
 export class ActionListEffects {
     @Effect() deleteItemFromList = this.update$.ofType(ListedActions.DELETE_ACTION)
         .mergeMap(action => {
-            localforage.getItem('actionlist').then(actions => {
+            localforage.getItem('actionlist', actions => {
                 const getAction = actions.find((foundAction) => foundAction.type === action.payload.type);
 
                 getAction.payload.forEach((value, index) => {
@@ -25,7 +25,7 @@ export class ActionListEffects {
 
   @Effect() getItemsList = this.update$.ofType(ListedActions.GET_ACTION)
     .mergeMap(action => {
-      return localforage.getItem('actionlist').then(actions => {
+      return localforage.getItem('actionlist', actions => {
         actions = actions ? actions : [];
         return {type: ListedActions.GET_ACTION_COMMIT, payload: actions};
       })
