@@ -10,7 +10,6 @@ import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/switchMap';
 import { ActionsService } from 'app/common/services/actions.service';
 import { MainEffects } from 'app/common/effects/main.effects';
-import { StoreService } from 'app/common/services/store.service';
 import { LocalStorageService } from 'app/common/services/localstorage.service';
 import { ListedActions } from 'app/common/actions/actionList.actions';
 

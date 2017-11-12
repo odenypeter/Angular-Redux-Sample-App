@@ -10,7 +10,6 @@ import { WorkFlowLevel2Effects } from '../common/effects/workflowLevel2.effects'
 import { ActionListEffects } from '../common/effects/actionList.effects';
 import { HttpModule } from '@angular/http';
 import { RequestService } from './services/request.service';
-import { StoreService } from './services/store.service';
 import { ActionsService } from './services/actions.service';
 import { LocalStorageService } from './services/localstorage.service';
 
@@ -39,7 +38,6 @@ const appEffectsRun = [
     WorkflowLevel1Actions,
     WorkflowLevel2Actions,
     RequestService,
-    StoreService,
     ActionsService,
     {
       provide: APP_INITIALIZER,
