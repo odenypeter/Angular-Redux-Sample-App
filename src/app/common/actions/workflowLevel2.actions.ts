@@ -22,8 +22,8 @@ export class WorkflowLevel2Actions {
       type: WorkflowLevel2Actions.GET_REQUEST,
       meta: {
         effect: {url: '/workflowlevel2/', method: 'GET'},
-        commit: {type: WorkflowLevel2Actions.GET_COMMIT},
-        rollback: {type: WorkflowLevel2Actions.GET_ROLLBACK}
+        save: {type: WorkflowLevel2Actions.GET_COMMIT},
+        undo: {type: WorkflowLevel2Actions.GET_ROLLBACK}
       }
     };
   };
@@ -34,8 +34,8 @@ export class WorkflowLevel2Actions {
       payload: data,
       meta: {
         effect: {url: '/workflowlevel2/' + data.id + '/', method: 'DELETE'},
-        commit: {type: WorkflowLevel2Actions.DELETE_COMMIT},
-        rollback: {type: WorkflowLevel2Actions.DELETE_ROLLBACK}
+        save: {type: WorkflowLevel2Actions.DELETE_COMMIT},
+        undo: {type: WorkflowLevel2Actions.DELETE_ROLLBACK}
       }
     }
   }
@@ -46,8 +46,8 @@ export class WorkflowLevel2Actions {
       payload: data,
       meta: {
         effect: { url: '/workflowlevel2/', method: 'POST', payload: data},
-        commit: {type: WorkflowLevel2Actions.ADD_COMMIT, payload: data},
-        rollback: {type: WorkflowLevel2Actions.ADD_ROLLBACK, payload: data}
+        save: {type: WorkflowLevel2Actions.ADD_COMMIT, payload: data},
+        undo: {type: WorkflowLevel2Actions.ADD_ROLLBACK, payload: data}
       }
     }
   }

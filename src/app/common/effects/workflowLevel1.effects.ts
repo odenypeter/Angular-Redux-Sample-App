@@ -24,9 +24,15 @@ export class WorkFlowLevel1Effects extends MainEffects {
       const options = new RequestOptions({ headers: this.headers });
       return this._http.get('http://dev-v2.tolaactivity.app.tola.io/api/workflowlevel1/', options)
         .map(res => ({
-          type: action.meta.commit.type,
+          type: action.meta.save.type,
           payload: res.json()
         }))
+        .catch(error => {
+          return Observable.of({
+            type: action.meta.undo.type,
+            payload: action.meta.undo.payload
+          })
+        });
     });
 
   @Effect() operationCommit$ = this.execute$
@@ -34,6 +40,18 @@ export class WorkFlowLevel1Effects extends MainEffects {
     .mergeMap(action => {
       localforage.setItem('workflowslevel1', action.payload);
       return Observable.of({type: 'DONE'});
+    });
+
+
+  @Effect() operationRollback$ = this.execute$
+    .ofType(WorkflowLevel1Actions.WORKFLOW_LEVEL_1_ROLLBACK)
+    .switchMap(action => {
+      return localforage.getItem('workflowslevel1').then(data => {
+        return {
+          type: WorkflowLevel1Actions.WORKFLOW_LEVEL_1_COMMIT,
+          payload: data,
+        }
+      })
     });
 
  headers = new Headers();
@@ -46,20 +64,5 @@ export class WorkFlowLevel1Effects extends MainEffects {
 
               this.headers.append('Authorization', 'Token dd18c9fa41efd7fede66342e8d7bab9297112a80');
 
-
-  }
-
-  undo(action, type = 'CREATE') {
-    const actionlist = this.actions.saveInQueueAction(action);
-    this._actionsService.addActions(actionlist, type);
-    return Observable.of(
-      {
-        type: ListedActions.SAVE_ACTION,
-        payload: action.meta.rollback.payload
-      },
-      {
-        type: action.meta.rollback.type,
-        payload: action.meta.rollback.payload
-      });
   }
 }

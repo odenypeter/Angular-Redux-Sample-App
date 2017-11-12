@@ -14,8 +14,8 @@ export class WorkflowLevel1Actions {
       type: WorkflowLevel1Actions.WORKFLOW_LEVEL_1_READ,
       meta: {
         effect: {url: '/workflowlevel1/', method: 'GET'},
-        commit: {type: WorkflowLevel1Actions.WORKFLOW_LEVEL_1_COMMIT},
-        rollback: {type: WorkflowLevel1Actions.WORKFLOW_LEVEL_1_ROLLBACK}
+        save: {type: WorkflowLevel1Actions.WORKFLOW_LEVEL_1_COMMIT},
+        undo: {type: WorkflowLevel1Actions.WORKFLOW_LEVEL_1_ROLLBACK}
       }
     };
   };

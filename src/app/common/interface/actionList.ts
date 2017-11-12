@@ -7,7 +7,7 @@ export interface ActionList {
       url: string,
       payload?: any,
     },
-    commit: any,
-    rollback: any,
+    save: any,
+    undo: any,
   }
 }
