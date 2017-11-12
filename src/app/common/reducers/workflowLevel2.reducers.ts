@@ -4,19 +4,19 @@ import { Action } from '@ngrx/store';
 export function workflowLevel2Reducer(state = [], action: Action) {
   switch (action.type) {
 
-    case WorkflowLevel2Actions.GET_COMMIT:
+    case WorkflowLevel2Actions.WORKFLOW_LEVEL_2_READ_SAVE:
       return action.payload;
 
-    case WorkflowLevel2Actions.GET_ROLLBACK:
+    case WorkflowLevel2Actions.WORKFLOW_LEVEL_2_READ_UNDO:
       break;
 
-    case WorkflowLevel2Actions.ADD_COMMIT:
+    case WorkflowLevel2Actions.WORKFLOW_LEVEL_2_ADD_SAVE:
       return [...state, action.payload];
 
-    case WorkflowLevel2Actions.ADD_ROLLBACK:
+    case WorkflowLevel2Actions.WORKFLOW_LEVEL_2_ADD_UNDO:
       return [...state, action.payload];
 
-    case WorkflowLevel2Actions.DELETE_COMMIT:
+    case WorkflowLevel2Actions.WORKFLOW_LEVEL_2_DELTE_SAVE:
       const deletedItemState = [];
       state.forEach(x => {
         if (x.id !== action.payload.id) {

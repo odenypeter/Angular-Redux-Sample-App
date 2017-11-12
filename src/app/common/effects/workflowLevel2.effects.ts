@@ -19,7 +19,7 @@ declare let localforage: any;
 export class WorkFlowLevel2Effects extends MainEffects {
 
   @Effect() getWorkflowLevel2$ = this.execute$
-  .ofType(WorkflowLevel2Actions.GET_REQUEST)
+  .ofType(WorkflowLevel2Actions.WORKFLOW_LEVEL_2_READ)
   .switchMap((action: ActionList) => {
     const options = new RequestOptions({ headers: this.headers });
     return this._http.get('http://dev-v2.tolaactivity.app.tola.io/api/workflowlevel2/', options)
@@ -37,25 +37,25 @@ export class WorkFlowLevel2Effects extends MainEffects {
   });
 
   @Effect() getWorkflowsLevel2Commit$ = this.execute$
-    .ofType(WorkflowLevel2Actions.GET_COMMIT)
+    .ofType(WorkflowLevel2Actions.WORKFLOW_LEVEL_2_READ_SAVE)
     .mergeMap(action => {
       localforage.setItem('workflowslevel2', action.payload);
       return Observable.of({type: 'DONE'});
     });
 
     @Effect() getWorkflowsLevel1Rollback$ = this.execute$
-    .ofType(WorkflowLevel2Actions.GET_ROLLBACK)
+    .ofType(WorkflowLevel2Actions.WORKFLOW_LEVEL_2_READ_UNDO)
     .switchMap(action => {
       return localforage.getItem('workflowslevel2').then(projects => {
         return {
-          type: WorkflowLevel2Actions.GET_COMMIT,
+          type: WorkflowLevel2Actions.WORKFLOW_LEVEL_2_READ_SAVE,
           payload: projects,
         }
       })
     });
 
   @Effect() deleteWorkflowsLevel2Request$ = this.execute$
-    .ofType(WorkflowLevel2Actions.DELETE_REQUEST)
+    .ofType(WorkflowLevel2Actions.WORKFLOW_LEVEL_2_DELTE)
     .switchMap((action: ActionList) => {
       const options = new RequestOptions({ headers: this.headers });
       return this._http.delete('http://dev-v2.tolaactivity.app.tola.io/api/workflowlevel2/' + action.payload.id, options)
@@ -80,7 +80,7 @@ export class WorkFlowLevel2Effects extends MainEffects {
     });
 
     @Effect() addWorkflowLevel2Request$ = this.execute$
-    .ofType(WorkflowLevel2Actions.ADD_REQUEST)
+    .ofType(WorkflowLevel2Actions.WORKFLOW_LEVEL_2_ADD)
     .mergeMap((action: ActionList) => {
     const options = new RequestOptions({ headers: this.headers });
       return this._http.post('http://dev-v2.tolaactivity.app.tola.io/api/workflowlevel2/', action.payload, options)

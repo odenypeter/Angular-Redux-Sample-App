@@ -3,7 +3,7 @@ import { WorkflowLevel1Actions } from '../actions/workflowLevel1.actions';
 
 export function workflowLevel1Reducer(state = [], action: Action) {
   switch (action.type) {
-    case WorkflowLevel1Actions.WORKFLOW_LEVEL_1_COMMIT:
+    case WorkflowLevel1Actions.WORKFLOW_LEVEL_1_READ_SAVE:
       return action.payload;
     default:
       return state;

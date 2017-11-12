@@ -36,7 +36,7 @@ export class WorkFlowLevel1Effects extends MainEffects {
     });
 
   @Effect() operationCommit$ = this.execute$
-    .ofType(WorkflowLevel1Actions.WORKFLOW_LEVEL_1_COMMIT)
+    .ofType(WorkflowLevel1Actions.WORKFLOW_LEVEL_1_READ_SAVE)
     .mergeMap(action => {
       localforage.setItem('workflowslevel1', action.payload);
       return Observable.of({type: 'DONE'});
@@ -44,12 +44,12 @@ export class WorkFlowLevel1Effects extends MainEffects {
 
 
   @Effect() operationRollback$ = this.execute$
-    .ofType(WorkflowLevel1Actions.WORKFLOW_LEVEL_1_ROLLBACK)
+    .ofType(WorkflowLevel1Actions.WORKFLOW_LEVEL_1_READ_UNDO)
     .switchMap(action => {
-      return localforage.getItem('workflowslevel1').then(data => {
+      return localforage.getItem('workflowslevel1').then(programs => {
         return {
-          type: WorkflowLevel1Actions.WORKFLOW_LEVEL_1_COMMIT,
-          payload: data,
+          type: WorkflowLevel1Actions.WORKFLOW_LEVEL_1_READ_SAVE,
+          payload: programs,
         }
       })
     });
