@@ -12,6 +12,7 @@ import { HttpModule } from '@angular/http';
 import { RequestService } from './services/request.service';
 import { ActionsService } from './services/actions.service';
 import { LocalStorageService } from './services/localstorage.service';
+import { AppService } from './services/app.service';
 
 export function initializeActionService(_actionService: ActionsService): any {
     return () => {
@@ -46,6 +47,7 @@ const appEffectsRun = [
       multi: true
     },
     LocalStorageService,
+    AppService
   ],
   exports: [
     BrowserModule,

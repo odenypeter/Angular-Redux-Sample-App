@@ -2,22 +2,35 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../interface/appstate';
 import { LocalStorageService } from '../services/localstorage.service';
+import { AppService } from '../services/app.service';
 
 @Injectable()
 export class ActionsService {
 
-  private subscription = false;
+  private runActions = false;
 
   constructor(private _store: Store<AppState>,
-              private _lstorage: LocalStorageService) {
-    // if (!this.subscription) {
-    //   this.networkService.status.subscribe(isOnline => {
-    //     if (isOnline) {
-    //       this.executeAllActionsInStore()
-    //     }
-    //   })
-    //   this.subscription = true;
-    // }
+              private _lstorage: LocalStorageService,
+              private _appService: AppService) {
+
+        if (!this.runActions) {
+          this._appService.isConnected.subscribe(isConnected => {
+            if (isConnected) {
+              this._lstorage.getItem('actionList').subscribe(actions => {
+                try {
+                    for (const action of actions) {
+                      this._store.dispatch(action)
+                    }
+                  } catch (err) {
+                  // Pass in case of an error
+                }
+              });
+              this.clearItemsInStorege();
+              this._lstorage.removeItem('actionlist');
+            }
+          })
+          this.runActions = true;
+        }
   }
 
   public load() {
@@ -112,20 +125,5 @@ export class ActionsService {
   private clearItemsInStorege() {
     this._lstorage.removeItem('actionlist');
     return;
-  }
-
-  // call this method to process all actions when there is interenet connectivity
-  private executeAllActionsInStore() {
-    this._lstorage.getItem('actionList').subscribe(actions => {
-      try {
-          for (const action of actions) {
-            this._store.dispatch(action)
-          }
-        } catch (err) {
-        // Pass in case of an error
-      }
-    });
-    this.clearItemsInStorege();
-    this._lstorage.removeItem('actionlist');
   }
 }
