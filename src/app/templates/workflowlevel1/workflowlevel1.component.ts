@@ -18,6 +18,7 @@ import { WorkflowLevel2Actions } from 'app/common/actions/workflowLevel2.actions
 export class Workflowlevel1Component implements OnInit, OnDestroy {
 
   showHide: false;
+  hideDiv = {};
   confirm_delete;
 
   projectForm: FormGroup;
@@ -48,6 +49,7 @@ export class Workflowlevel1Component implements OnInit, OnDestroy {
       expected_start_date: [''],
       expected_end_date: ['']
     });
+  this.hideDiv = {};
   }
 
   ngOnInit() {

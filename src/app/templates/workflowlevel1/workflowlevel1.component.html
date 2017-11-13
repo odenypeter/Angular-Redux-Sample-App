@@ -32,8 +32,8 @@
                 <div class="alert alert-danger" *ngIf="!program.projects.length">
                     <strong>Whoops!</strong> There are no Activities for this Project.
                 </div>
-                <button class="btn btn-info" (click)="showHide = !showHide" *ngIf="!showHide">Add Activity</button>
-                <div class="" *ngIf="showHide">
+                <button class="btn btn-info" (click)="hideDiv[program.id] = !hideDiv[program.id]">Add Activity</button>
+                <div class="" [hidden]="!hideDiv[program.id]">
                     <form [formGroup]="projectForm" novalidate>
                         <div class="form-group row">
                             <div class="col-md-3">
